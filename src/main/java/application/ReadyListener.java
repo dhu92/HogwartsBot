@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Properties;
 
 
@@ -26,7 +27,8 @@ public class ReadyListener implements EventListener {
     private MessageHandler _handler;
 
     public static void main(String[] args) throws LoginException, InterruptedException, IOException {
-        String token = "getyourowntoken.";
+        //token in config.properties file (token=<token>)
+        String token = getToken();
         _jda = new JDABuilder(AccountType.BOT)
                 .setToken(token)
                 .addEventListener(new ReadyListener())
@@ -36,7 +38,6 @@ public class ReadyListener implements EventListener {
     private ReadyListener(){
         _handler = new MessageHandler();
 
-        //Add all commands here
         _handler.addCommand(new SortCommand());
     }
 
@@ -53,6 +54,9 @@ public class ReadyListener implements EventListener {
         return _jda;
     }
 
+    public static String getToken(){
+        return new ConfigLoader().getToken();
+    }
 }
 
 
