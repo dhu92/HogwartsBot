@@ -21,7 +21,16 @@ public class MessageHandler {
     private static final String PREFIX = "h!";
     private List<Command> _commands;
 
-    public MessageHandler(){
+    private static MessageHandler _instance;
+
+    public static MessageHandler getInstance(){
+        if(_instance == null){
+            _instance = new MessageHandler();
+        }
+        return _instance;
+    }
+
+    private MessageHandler(){
         _commands = new ArrayList<Command>();
     }
 
@@ -63,6 +72,7 @@ public class MessageHandler {
     public void addCommand(Command command){
         _commands.add(command);
     }
+    public List<Command> getRegisteredCommands(){return _commands;}
 
     public static String getPrefix(){
         return PREFIX;

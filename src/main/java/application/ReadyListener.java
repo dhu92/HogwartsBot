@@ -1,5 +1,6 @@
 package application;
 
+import commands.HelpCommand;
 import commands.SortCommand;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -36,9 +37,10 @@ public class ReadyListener implements EventListener {
     }
 
     private ReadyListener(){
-        _handler = new MessageHandler();
+        _handler = MessageHandler.getInstance();
 
         _handler.addCommand(new SortCommand());
+        _handler.addCommand(new HelpCommand());
     }
 
     public void onEvent(Event event){

@@ -11,7 +11,7 @@ import net.dv8tion.jda.core.entities.Message;
 public class SortCommand extends ContextCommand {
 
     public SortCommand() {
-        super("sort");
+        super("sort", "Get sorted into your Hogwarts house!");
     }
 
     public void execute(Message message) {

@@ -9,9 +9,16 @@ import net.dv8tion.jda.core.entities.Message;
 public abstract class Command {
 
     private String _name;
+    private String _description;
 
     public Command(String name){
         _name = name;
+        _description = "No description available";
+    }
+
+    public Command(String name, String description){
+        _name = name;
+        _description = description;
     }
 
     public String getName(){
@@ -21,6 +28,10 @@ public abstract class Command {
     public void setName(String name){
         _name = name;
     }
+
+    public String getDescription(){return _description;}
+
+    public void setDescription(String description){_description = description;}
 
     public boolean matchesInput(Message message){
         String[] parameters = message.getContentDisplay().split(" ");

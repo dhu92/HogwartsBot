@@ -12,8 +12,8 @@ public abstract class ContextCommand extends Command{
 
     private AnswerQueue _queue;
 
-    public ContextCommand(String name) {
-        super(name);
+    public ContextCommand(String name, String description){
+        super(name, description);
         _queue = AnswerQueue.getInstance();
     }
 

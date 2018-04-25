@@ -16,7 +16,6 @@ public class ConfigLoader {
         InputStream input = null;
         String token = "";
         try {
-
             input = getClass().getClassLoader().getResourceAsStream(config);
             URL url = getClass().getProtectionDomain().getCodeSource().getLocation();
             URL urlproperties = new URL(url, config);
