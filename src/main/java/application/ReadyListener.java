@@ -26,7 +26,7 @@ public class ReadyListener implements EventListener {
     private MessageHandler _handler;
 
     public static void main(String[] args) throws LoginException, InterruptedException, IOException {
-        String token = "getyourowntoken";
+        String token = "getyourowntoken.";
         _jda = new JDABuilder(AccountType.BOT)
                 .setToken(token)
                 .addEventListener(new ReadyListener())
