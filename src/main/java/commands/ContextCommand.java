@@ -10,33 +10,37 @@ import java.util.List;
  */
 public abstract class ContextCommand extends Command{
 
-    private List<User> _users;
+    private AnswerQueue _queue;
 
     public ContextCommand(String name) {
         super(name);
-        _users = new ArrayList<User>();
+        _queue = AnswerQueue.getInstance();
     }
 
     public List<User> getUserList(){
-        return _users;
+        return _queue.getAllQueuedUsers();
     }
 
-    public void setUsers(List<User> users){
-        _users = users;
+    public void setUsers(AnswerQueue queue){
+        _queue = queue;
     }
 
     public void addUser(User user){
-        _users.add(user);
+        _queue.addUserToList(user, this);
     }
 
     public void removeUser(User user){
-        _users.remove(user);
+        _queue.removeUser(user);
     }
 
     public boolean userAlreadyInList(User user){
-        if(_users.contains(user)){
+        if(_queue.isQueuedForCommand(user, this)){
             return true;
         }
         return false;
+    }
+
+    public List<User> getAllQueuedUsers(){
+        return _queue.getAllUsersByCommand(this);
     }
 }

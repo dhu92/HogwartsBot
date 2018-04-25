@@ -37,4 +37,11 @@ public abstract class Command {
     }
 
     public abstract void execute(Message message);
+
+    public boolean equals(Command command){
+        if(_name.equals(command.getName())){
+            return true;
+        }
+        return false;
+    }
 }
