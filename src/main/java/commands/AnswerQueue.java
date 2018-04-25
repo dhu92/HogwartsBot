@@ -86,10 +86,12 @@ public class AnswerQueue {
 
     private class CommandEntry{
 
+        private List<String> previousAnswers;
         private int _stage;
         private Command _command;
 
         public CommandEntry(Command command){
+            previousAnswers = new ArrayList<String>();
             _stage = 1;
             _command = command;
         }
