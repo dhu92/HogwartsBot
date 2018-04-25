@@ -55,4 +55,9 @@ public abstract class Command {
         }
         return false;
     }
+
+    public String[] convertMessageToStringParameters(Message message){
+        String[] parameters = message.getContentDisplay().split(" ");
+        return parameters;
+    }
 }

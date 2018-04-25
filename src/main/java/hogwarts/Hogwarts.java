@@ -33,6 +33,15 @@ public class Hogwarts {
         return _houses.get(rand.nextInt(_houses.size()));
     }
 
+    public HogwartsHouse getHouseByName(String name){
+        for(HogwartsHouse house : _houses){
+            if(house.getName().toUpperCase().equals(name.toUpperCase())){
+                return house;
+            }
+        }
+        return null;
+    }
+
     public List<HogwartsHouse> getHogwartsHouseList(){
         return _houses;
     }
