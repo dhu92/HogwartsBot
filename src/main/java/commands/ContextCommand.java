@@ -13,15 +13,30 @@ public abstract class ContextCommand extends Command{
 
     private AnswerQueue _queue;
     private int _questions;
+    private List<String> _response;
 
     public ContextCommand(String name, String description){
         super(name, description);
         _queue = AnswerQueue.getInstance();
+        _response = new ArrayList<String>();
     }
 
-    public ContextCommand(String name, String description, int questsionCount){
+    public ContextCommand(String name, String description, int questionCount){
         this(name, description);
-        _questions = questsionCount;
+        _questions = questionCount;
+    }
+
+    public void addResponse(String response){
+        _response.add(response);
+    }
+
+    public String getNextResponse(int index){
+        if(index < _response.size()) {
+            return _response.get(index);
+        } else {
+            System.out.println("Out of bounds :(");
+        }
+        return "";
     }
 
     public int getQuestionCount(){return _questions;}
@@ -47,10 +62,15 @@ public abstract class ContextCommand extends Command{
     }
 
     public boolean userAlreadyInList(User user){
-        if(_queue.isQueuedForCommand(user, this)){
-            return true;
-        }
-        return false;
+        return _queue.isQueuedForCommand(user, this);
+    }
+
+    public void addAnswer(User user, String answer){
+        _queue.addAnswerToQueue(user, answer);
+    }
+
+    public boolean commandIsFinished(User user){
+        return _queue.commandIsFinished(user, getCurrentContextStage(user, this));
     }
 
     public List<User> getAllQueuedUsers(){
@@ -67,4 +87,6 @@ public abstract class ContextCommand extends Command{
         }
         return null;
     }
+
+    public abstract void setResponses();
 }

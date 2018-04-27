@@ -47,7 +47,7 @@ public class AnswerQueue {
     public List<User> getAllQueuedUsers(){
         List<User> users = new ArrayList<User>();
         for(User user : _waiting.keySet()){
-            if(_waiting.get(user) != null){
+            if(isInList(user)){
                 if(!users.contains(user)) {
                     users.add(user);
                 }
@@ -57,7 +57,7 @@ public class AnswerQueue {
     }
 
     public boolean isQueuedForCommand(User user, Command command){
-        if(_waiting.get(user) != null){
+        if(isInList(user)){
             if(_waiting.get(user).getCommand().equals(command)){
                 return true;
             }
@@ -76,7 +76,7 @@ public class AnswerQueue {
     }
 
     public int getCurrentQuestionCount(User user, Command command){
-        if(_waiting.get(user) != null){
+        if(isInList(user)){
             if(_waiting.get(user).getCommand().equals(command)){
                 return _waiting.get(user).getStage();
             }
@@ -84,25 +84,38 @@ public class AnswerQueue {
         return 0;
     }
 
+    public void addAnswerToQueue(User user, String answer){
+        if(isInList(user)){
+            _waiting.get(user).addAnswer(answer);
+        }
+    }
+
+    public boolean commandIsFinished(User user, int stage){
+        if(isInList(user)){
+            if(_waiting.get(user).getStage() >= stage){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     private class CommandEntry{
 
-        private List<String> previousAnswers;
-        private int _stage;
+        private List<String> _previousAnswers;
         private Command _command;
 
         public CommandEntry(Command command){
-            previousAnswers = new ArrayList<String>();
-            _stage = 1;
+            _previousAnswers = new ArrayList<String>();
             _command = command;
         }
 
-        public CommandEntry(Command command, int stage){
-            _stage = stage;
-            _command = command;
+        public void addAnswer(String answer){
+            _previousAnswers.add(answer);
         }
 
         public int getStage(){
-            return _stage;
+            return _previousAnswers.size();
         }
 
         public Command getCommand(){
