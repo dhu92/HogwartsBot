@@ -4,6 +4,7 @@ import application.MessageHandler;
 import hogwarts.Hogwarts;
 import hogwarts.HogwartsHouse;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.User;
 
 /**
  * Created by David on 4/25/2018.
@@ -15,6 +16,13 @@ public class SortCommand extends ContextCommand {
     }
 
     public void execute(Message message) {
+        User user = message.getAuthor();
+        //TODO: rework responses
+        /*if(!userAlreadyInList(user)){
+            addUser(user);
+            addAnswer(user, "init");
+        }
+        sendTextResponse(message, getNextResponse(user));*/
         if (!userAlreadyInList(message.getAuthor())) {
             addUser(message.getAuthor());
             addAnswer(message.getAuthor(), "init");
@@ -22,7 +30,7 @@ public class SortCommand extends ContextCommand {
         } else {
             switch(getCurrentContextStage(message.getAuthor(), this)){
                 case 0:
-                    sendTextResponse(message, "You are currenty not doing anything that needs an answer");
+                    sendTextResponse(message, "You are currently not doing anything that needs an answer");
                     break;
                 case 1:
                     String[] parameters = convertMessageToStringParameters(message);

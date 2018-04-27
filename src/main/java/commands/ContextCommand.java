@@ -30,11 +30,9 @@ public abstract class ContextCommand extends Command{
         _response.add(response);
     }
 
-    public String getNextResponse(int index){
-        if(index < _response.size()) {
-            return _response.get(index);
-        } else {
-            System.out.println("Out of bounds :(");
+    public String getNextResponse(User user){
+        if(getCurrentContextStage(user, this) < _response.size()) {
+            return _response.get(getCurrentContextStage(user, this));
         }
         return "";
     }
