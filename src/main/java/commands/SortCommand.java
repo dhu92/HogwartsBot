@@ -1,7 +1,7 @@
 package commands;
 
-import hogwarts.Hogwarts;
-import hogwarts.HogwartsHouse;
+import domain.hogwarts.Hogwarts;
+import domain.hogwarts.HogwartsHouse;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;

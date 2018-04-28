@@ -99,6 +99,9 @@ public class AnswerQueue {
         return false;
     }
 
+    public Command getCommandForUser(User user){
+        return _waiting.get(user).getCommand();
+    }
 
     private class CommandEntry{
 

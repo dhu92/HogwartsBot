@@ -1,4 +1,4 @@
-package hogwarts;
+package domain.hogwarts;
 
 /**
  * Created by David on 4/25/2018.

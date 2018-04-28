@@ -1,4 +1,4 @@
-package hogwarts;
+package domain.hogwarts;
 
 import java.util.ArrayList;
 import java.util.List;

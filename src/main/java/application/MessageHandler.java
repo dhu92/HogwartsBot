@@ -1,11 +1,7 @@
 package application;
 
 import commands.Command;
-import hogwarts.Hogwarts;
-import hogwarts.HogwartsHouse;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -43,7 +39,7 @@ public class MessageHandler {
                 if(command != null){
                     command.execute(message);
                 } else {
-                    sendTextResponse(message, "Invalid command!");
+                    sendTextResponse(message, "Invalid command! Type h!help to see all commands of this bot.");
                 }
             }
         }
