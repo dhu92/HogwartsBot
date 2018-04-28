@@ -1,14 +1,18 @@
-package domain.wizards;
+package domain.wizard;
 
-import com.sun.org.apache.bcel.internal.generic.AllocationInstruction;
 import domain.hogwarts.Hogwarts;
 import domain.hogwarts.HogwartsHouse;
+import domain.spell.Spell;
+import domain.spell.SpellTarget;
 import persistence.WizardRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by David on 4/28/2018.
  */
-public class Wizard {
+public class Wizard implements SpellTarget{
 
     private static WizardRepository _wizardRepository = new WizardRepository();
 
@@ -18,9 +22,11 @@ public class Wizard {
     private HogwartsHouse _house;
     private int _pointContribution;
     private Alignment _alignment;
+    private List<Spell> _spellList;
 
     public Wizard(){
         _pointContribution = 0;
+        _spellList = new ArrayList<Spell>();
     }
 
     public int getId(){
@@ -71,6 +77,18 @@ public class Wizard {
         return _alignment;
     }
 
+    public List<Spell> getSpellList(){
+        return _spellList;
+    }
+
+    public void setSpellList(List<Spell> spellList){
+        _spellList = spellList;
+    }
+
+    public void addSpell(Spell spell){
+        _spellList.add(spell);
+    }
+
     public void setAlignment(Alignment alignment){
         _alignment = alignment;
     }
@@ -85,5 +103,9 @@ public class Wizard {
 
     public boolean isSorted(){
         return _house.getName().equals(Hogwarts.DEFAULT_HOUSE.getName());
+    }
+
+    public void handleCastedSpell(Spell spell) {
+
     }
 }

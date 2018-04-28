@@ -1,6 +1,7 @@
 package persistence;
 
-import domain.wizards.Wizard;
+import domain.hogwarts.HogwartsHouse;
+import domain.wizard.Wizard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +39,15 @@ public class WizardRepository {
             return true;
         }
         return false;
+    }
+
+    public List<Wizard> getWizardsByHouse(HogwartsHouse house){
+        List<Wizard> foundWizards = new ArrayList<Wizard>();
+        for(Wizard wizard : _wizards){
+            if(wizard.getHouse().equals(house)) {
+                foundWizards.add(wizard);
+            }
+        }
+        return foundWizards;
     }
 }

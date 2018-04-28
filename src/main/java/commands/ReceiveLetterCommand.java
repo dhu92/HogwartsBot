@@ -1,12 +1,10 @@
 package commands;
 
 import domain.hogwarts.Hogwarts;
-import domain.wizards.Alignment;
-import domain.wizards.Wizard;
+import domain.wizard.Alignment;
+import domain.wizard.Wizard;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
 import utility.Command;
-import utility.ContextCommand;
 
 /**
  * Created by David on 4/28/2018.

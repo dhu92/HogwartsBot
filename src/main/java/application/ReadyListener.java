@@ -1,10 +1,7 @@
 package application;
 
-import commands.InfoCommand;
-import commands.ReceiveLetterCommand;
+import commands.*;
 import utility.AnswerCommand;
-import commands.HelpCommand;
-import commands.SortCommand;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -42,6 +39,7 @@ public class ReadyListener implements EventListener {
         _handler.addCommand(new AnswerCommand());
         _handler.addCommand(new InfoCommand());
         _handler.addCommand(new ReceiveLetterCommand());
+        _handler.addCommand(new HouseInfoCommand());
     }
 
     public void onEvent(Event event){

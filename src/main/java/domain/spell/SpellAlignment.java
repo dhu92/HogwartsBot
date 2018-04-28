@@ -1,8 +1,8 @@
-package domain.wizards;
+package domain.spell;
 
 /**
  * Created by David on 4/28/2018.
  */
-public enum Alignment {
+public enum SpellAlignment {
     Good, Neutral, Evil
 }

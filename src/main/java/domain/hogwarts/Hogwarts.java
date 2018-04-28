@@ -48,6 +48,15 @@ public class Hogwarts {
         return _houses;
     }
 
+    public boolean houseExists(String name){
+        for(HogwartsHouse house : _houses){
+            if(house.getName().toLowerCase().equals(name.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addHogwartsHouse(HogwartsHouse house){
         _houses.add(house);
     }
