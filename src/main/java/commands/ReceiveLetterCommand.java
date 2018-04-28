@@ -16,13 +16,15 @@ public class ReceiveLetterCommand extends Command {
     }
 
     public void execute(Message message) {
-        Wizard wizard = new Wizard();
-        wizard.setUid(message.getAuthor().getId());
-        wizard.setName(message.getAuthor().getName());
-        wizard.setAlignment(Alignment.Neutral);
-        wizard.setHouse(Hogwarts.DEFAULT_HOUSE);
-        Wizard.getWizardRepository().save(wizard);
-        sendTextResponse(message, "You are a wizard, " + message.getAuthor().getName());
+        if (commandShouldBeExecuted(message)) {
+            Wizard wizard = new Wizard();
+            wizard.setUid(message.getAuthor().getId());
+            wizard.setName(message.getAuthor().getName());
+            wizard.setAlignment(Alignment.Neutral);
+            wizard.setHouse(Hogwarts.DEFAULT_HOUSE);
+            Wizard.getWizardRepository().save(wizard);
+            sendTextResponse(message, "You are a wizard, " + message.getAuthor().getName());
+        }
     }
 
     public boolean commandShouldBeExecuted(Message message) {

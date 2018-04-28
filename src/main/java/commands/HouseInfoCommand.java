@@ -19,7 +19,9 @@ public class HouseInfoCommand extends Command{
         if(commandShouldBeExecuted(message)) {
             String houseName = convertMessageToStringParameters(message)[1];
             if (Hogwarts.getInstance().houseExists(houseName)) {
-                sendTextResponse(message, Hogwarts.getInstance().getHouseByName(houseName).getInfoString());
+                //sendTextResponse(message, Hogwarts.getInstance().getHouseByName(houseName).getInfoString());
+                HogwartsHouse house = Hogwarts.getInstance().getHouseByName(houseName);
+                sendEmbededMessage(message, house.getName(), house.getInfoString(), house.getPictureUrl());
             } else {
                 sendTextResponse(message, "Hogwarts house " + houseName + " does not exist!");
             }

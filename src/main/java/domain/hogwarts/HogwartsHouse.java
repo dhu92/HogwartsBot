@@ -1,7 +1,6 @@
 package domain.hogwarts;
 
 import domain.wizard.Wizard;
-import persistence.WizardRepository;
 
 import java.util.List;
 
@@ -13,10 +12,12 @@ public class HogwartsHouse {
     private int _id;
     private String _name;
     private int _points;
+    private String _pictureUrl;
 
-    public HogwartsHouse(String name){
+    public HogwartsHouse(String name, String pictureUrl){
         _name = name;
         _points = 0;
+        _pictureUrl = pictureUrl;
     }
 
     public int getId(){
@@ -42,6 +43,10 @@ public class HogwartsHouse {
         _points = value;
     }
 
+    public String getPictureUrl(){return _pictureUrl;}
+
+    public void setPictureUrl(String url){_pictureUrl = url;}
+
     public void setName(String name){
         _name = name;
     }
@@ -51,11 +56,8 @@ public class HogwartsHouse {
     }
 
     public String getInfoString(){
-        StringBuilder sb = new StringBuilder();
-        for(Wizard wizard : getAllWizards()){
-            sb.append(wizard.getName() + "|");
-        }
-        return "Name: " + _name + "\nCurrent Points: " + _points + "\nWizards in this house: " + sb.toString();
+        List<Wizard> wizards = getAllWizards();
+        return "Current Points: " + _points + "\nWizards in this house:\n" + wizards.size();
     }
 
     public List<Wizard> getAllWizards(){

@@ -1,5 +1,6 @@
 package application;
 
+import net.dv8tion.jda.core.EmbedBuilder;
 import utility.Command;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
@@ -63,6 +64,14 @@ public class MessageHandler {
             return true;
         }
         return false;
+    }
+
+    public static void sendEmbededMessage(Message message,String title, String text, String pictureUrl){
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setTitle(title);
+        eb.setDescription(text);
+        eb.setThumbnail(pictureUrl);
+        message.getChannel().sendMessage(eb.build()).queue();
     }
 
     public void addCommand(Command command){
