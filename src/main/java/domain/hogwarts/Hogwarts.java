@@ -9,10 +9,12 @@ import java.util.Random;
  */
 public class Hogwarts {
 
+    public static HogwartsHouse DEFAULT_HOUSE = new HogwartsHouse("You are not sorted yet! Use h!sort to get sorted into your house!");
     private static Hogwarts _instance;
     private List<HogwartsHouse> _houses;
 
     private Hogwarts(){
+
         _houses = new ArrayList<HogwartsHouse>();
         //TODO: DB
         _houses.add(new HogwartsHouse("Ravenclaw"));

@@ -26,4 +26,8 @@ public class HelpCommand extends Command {
         }
         sendTextResponse(message, sb.toString());
     }
+
+    public boolean commandShouldBeExecuted(Message message) {
+        return true;
+    }
 }

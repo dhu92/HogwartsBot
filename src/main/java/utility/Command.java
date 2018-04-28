@@ -61,4 +61,6 @@ public abstract class Command {
         String[] parameters = message.getContentDisplay().split(" ");
         return parameters;
     }
+
+    public abstract boolean commandShouldBeExecuted(Message message);
 }

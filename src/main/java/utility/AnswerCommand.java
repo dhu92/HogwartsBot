@@ -23,4 +23,8 @@ public class AnswerCommand extends Command {
         }
         sendTextResponse(message, ERROR_MESSAGE);
     }
+
+    public boolean commandShouldBeExecuted(Message message) {
+        return true;
+    }
 }

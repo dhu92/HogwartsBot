@@ -1,5 +1,7 @@
 package application;
 
+import commands.InfoCommand;
+import commands.ReceiveLetterCommand;
 import utility.AnswerCommand;
 import commands.HelpCommand;
 import commands.SortCommand;
@@ -38,6 +40,8 @@ public class ReadyListener implements EventListener {
         _handler.addCommand(new SortCommand());
         _handler.addCommand(new HelpCommand());
         _handler.addCommand(new AnswerCommand());
+        _handler.addCommand(new InfoCommand());
+        _handler.addCommand(new ReceiveLetterCommand());
     }
 
     public void onEvent(Event event){

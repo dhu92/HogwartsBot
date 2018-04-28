@@ -80,29 +80,34 @@ public abstract class ContextCommand extends Command{
     }
 
     public void execute(Message message) {
-        User user = message.getAuthor();
-        String[] params = convertMessageToStringParameters(message);
-        if(!userAlreadyInList(user)){
-            addUser(user);
-        }
-        String botAnswer;
-        BotResponse response = getNextResponse(user);
-        if(response.checkParameters(params)){
-            botAnswer = buildBotAnswerForCurrentStage(user, params);
-            addAnswer(user, buildUserAnswerString(params));
+        if(commandShouldBeExecuted(message)) {
+            User user = message.getAuthor();
+            String[] params = convertMessageToStringParameters(message);
+            if (!userAlreadyInList(user)) {
+                addUser(user);
+            }
+            String botAnswer;
+            BotResponse response = getNextResponse(user);
+            if (response.checkParameters(params)) {
+                botAnswer = buildBotAnswerForCurrentStage(user, params);
+                addAnswer(user, buildUserAnswerString(params));
 
-            //System.out.println("New stage: " + getCurrentContextStage(user, this));
+                //System.out.println("New stage: " + getCurrentContextStage(user, this));
+            } else {
+                botAnswer = ERROR_MESSAGE;
+            }
+            sendTextResponse(message, botAnswer);
+            if (commandIsFinished(user)) {
+                //System.out.println("Command finished");
+                removeUser(user);
+            }
         } else {
-            botAnswer = ERROR_MESSAGE;
-        }
-        sendTextResponse(message, botAnswer);
-        if(commandIsFinished(user)){
-            //System.out.println("Command finished");
-            removeUser(user);
+            sendTextResponse(message, "No need to do that");
         }
     }
 
     public abstract String buildBotAnswerForCurrentStage(User user, String[] params);
     public abstract String buildUserAnswerString(String[] params);
     public abstract void setResponses();
+    public abstract boolean commandShouldBeExecuted(Message message);
 }
