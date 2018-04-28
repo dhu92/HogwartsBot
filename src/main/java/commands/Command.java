@@ -10,6 +10,7 @@ public abstract class Command {
 
     private String _name;
     private String _description;
+    protected final String ERROR_MESSAGE = "Something went wront!\nUser h!help to see the proper usage for the bots commands!";
 
     public Command(String name){
         _name = name;

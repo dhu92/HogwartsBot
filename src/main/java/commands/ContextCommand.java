@@ -13,12 +13,13 @@ public abstract class ContextCommand extends Command{
 
     private AnswerQueue _queue;
     private int _questions;
-    private List<String> _response;
+    private List<BotResponse> _response;
 
     public ContextCommand(String name, String description){
         super(name, description);
         _queue = AnswerQueue.getInstance();
-        _response = new ArrayList<String>();
+        _response = new ArrayList<BotResponse>();
+        setResponses();
     }
 
     public ContextCommand(String name, String description, int questionCount){
@@ -26,15 +27,15 @@ public abstract class ContextCommand extends Command{
         _questions = questionCount;
     }
 
-    public void addResponse(String response){
+    public void addResponse(BotResponse response){
         _response.add(response);
     }
 
-    public String getNextResponse(User user){
+    public BotResponse getNextResponse(User user){
         if(getCurrentContextStage(user, this) < _response.size()) {
             return _response.get(getCurrentContextStage(user, this));
         }
-        return "";
+        return new BotResponse("Something went wrong");
     }
 
     public int getQuestionCount(){return _questions;}
@@ -68,6 +69,9 @@ public abstract class ContextCommand extends Command{
     }
 
     public boolean commandIsFinished(User user){
+        if(_response.size() <= getCurrentContextStage(user, this)){
+            return true;
+        }
         return _queue.commandIsFinished(user, getCurrentContextStage(user, this));
     }
 
@@ -75,16 +79,30 @@ public abstract class ContextCommand extends Command{
         return _queue.getAllUsersByCommand(this);
     }
 
-    @Override
-    public String[] convertMessageToStringParameters(Message message){
-        String[] parameters = super.convertMessageToStringParameters(message);
-        if(parameters != null){
-            if(parameters.length > 1){
-                return parameters;
-            }
+    public void execute(Message message) {
+        User user = message.getAuthor();
+        String[] params = convertMessageToStringParameters(message);
+        if(!userAlreadyInList(user)){
+            addUser(user);
         }
-        return null;
+        String botAnswer;
+        BotResponse response = getNextResponse(user);
+        if(response.checkParameters(params)){
+            botAnswer = buildBotAnswerForCurrentStage(user, params);
+            addAnswer(user, buildUserAnswerString(params));
+
+            //System.out.println("New stage: " + getCurrentContextStage(user, this));
+        } else {
+            botAnswer = ERROR_MESSAGE;
+        }
+        sendTextResponse(message, botAnswer);
+        if(commandIsFinished(user)){
+            //System.out.println("Command finished");
+            removeUser(user);
+        }
     }
 
+    public abstract String buildBotAnswerForCurrentStage(User user, String[] params);
+    public abstract String buildUserAnswerString(String[] params);
     public abstract void setResponses();
 }

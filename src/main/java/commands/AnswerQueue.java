@@ -92,7 +92,7 @@ public class AnswerQueue {
 
     public boolean commandIsFinished(User user, int stage){
         if(isInList(user)){
-            if(_waiting.get(user).getStage() >= stage){
+            if(_waiting.get(user).getStage() > stage){
                 return true;
             }
         }

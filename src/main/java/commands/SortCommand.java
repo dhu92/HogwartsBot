@@ -1,10 +1,10 @@
 package commands;
 
-import application.MessageHandler;
 import hogwarts.Hogwarts;
 import hogwarts.HogwartsHouse;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
+
+import java.util.ArrayList;
 
 /**
  * Created by David on 4/25/2018.
@@ -15,50 +15,44 @@ public class SortCommand extends ContextCommand {
         super("sort", "Get sorted into your Hogwarts house!", 1);
     }
 
-    public void execute(Message message) {
-        User user = message.getAuthor();
-        //TODO: rework responses
-        /*if(!userAlreadyInList(user)){
-            addUser(user);
-            addAnswer(user, "init");
+    public String buildUserAnswerString(String[] params){
+        StringBuilder sb = new StringBuilder("");
+        for(int i = 1; i < params.length; i++){
+            sb.append(params[i] + ",");
         }
-        sendTextResponse(message, getNextResponse(user));*/
-        if (!userAlreadyInList(message.getAuthor())) {
-            addUser(message.getAuthor());
-            addAnswer(message.getAuthor(), "init");
-            sendTextResponse(message, "Which house would you like to be in?");
-        } else {
-            switch(getCurrentContextStage(message.getAuthor(), this)){
-                case 0:
-                    sendTextResponse(message, "You are currently not doing anything that needs an answer");
-                    break;
-                case 1:
-                    String[] parameters = convertMessageToStringParameters(message);
-                    if(parameters != null && parameters.length > 1) {
-                        HogwartsHouse house = Hogwarts.getInstance().getHouseByName(convertMessageToStringParameters(message)[1]);
-                        if (house != null) {
-                            addAnswer(message.getAuthor(), convertMessageToStringParameters(message)[1]);
-                            sendTextResponse(message, "You have been sorted into: " + house.getName());
-                        } else {
-                            sendTextResponse(message, "House not found");
-                        }
-                    } else {
-                        sendTextResponse(message, "You are missing additional information to proceed with this command");
-                    }
-                    if(commandIsFinished(message.getAuthor())){
-                        removeUser(message.getAuthor());
-                    }
-                    break;
-                default:
-                    sendTextResponse(message, "You are currenty not doing anything that needs an answer");
-                    break;
-            }
-        }
+        return sb.toString();
     }
 
-    //handle later
     public void setResponses() {
-        addResponse("Which house would you like to be in?");
-        addResponse("You have been sorted into: ");
+        addResponse(new BotResponse("Which house would you like to be in?"));
+        ArrayList<String> params = new ArrayList<String>();
+        for(HogwartsHouse house : Hogwarts.getInstance().getHogwartsHouseList()){
+            params.add(house.getName());
+        }
+        BotResponse response = new BotResponse("You have been sorted into: ");
+        response.addValidParameters(params);
+        addResponse(response);
+    }
+
+    public String buildBotAnswerForCurrentStage(User user, String[] params){
+        String answer;
+        BotResponse botResponse = getNextResponse(user);
+        switch(getCurrentContextStage(user, this)){
+            case 0:
+                answer = botResponse.createResponse();
+                break;
+            case 1:
+                HogwartsHouse house = Hogwarts.getInstance().getHouseByName(params[1]);
+                if (house != null) {
+                    answer = botResponse.createResponse(house.getName());
+                } else {
+                    answer = "House not found\n" + ERROR_MESSAGE;
+                }
+                break;
+            default:
+                answer = ERROR_MESSAGE;
+                break;
+        }
+        return answer;
     }
 }
