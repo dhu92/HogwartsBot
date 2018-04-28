@@ -43,9 +43,7 @@ public class SortCommand extends ContextCommand {
 
     public boolean commandShouldBeExecuted(Message message) {
         if(Wizard.getWizardRepository().wizardExists(message.getAuthor().getId())) {
-            System.out.println("Wizard exists");
             if (Wizard.getWizardRepository().getWizardByUid(message.getAuthor().getId()).isSorted()) {
-                System.out.println("Wizard is not sorted yet");
                 return true;
             } else {
                 sendTextResponse(message, "You are already sorted!");
