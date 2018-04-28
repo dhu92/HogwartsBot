@@ -3,6 +3,8 @@ package commands;
 import domain.hogwarts.Hogwarts;
 import domain.hogwarts.HogwartsHouse;
 import net.dv8tion.jda.core.entities.User;
+import utility.BotResponse;
+import utility.ContextCommand;
 
 import java.util.ArrayList;
 

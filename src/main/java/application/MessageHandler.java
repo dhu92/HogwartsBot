@@ -1,6 +1,6 @@
 package application;
 
-import commands.Command;
+import utility.Command;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

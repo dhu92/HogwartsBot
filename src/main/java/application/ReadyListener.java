@@ -1,6 +1,6 @@
 package application;
 
-import commands.AnswerCommand;
+import utility.AnswerCommand;
 import commands.HelpCommand;
 import commands.SortCommand;
 import net.dv8tion.jda.core.AccountType;
@@ -12,12 +12,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 
 import javax.security.auth.login.LoginException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Properties;
 
 
 /**

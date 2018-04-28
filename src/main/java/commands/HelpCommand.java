@@ -2,13 +2,14 @@ package commands;
 
 import application.MessageHandler;
 import net.dv8tion.jda.core.entities.Message;
+import utility.Command;
 
 import java.util.List;
 
 /**
  * Created by David on 4/25/2018.
  */
-public class HelpCommand extends Command{
+public class HelpCommand extends Command {
 
     public HelpCommand() {
         super("help", "Shows all currently available commands");

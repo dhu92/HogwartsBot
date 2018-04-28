@@ -1,10 +1,6 @@
-package commands;
+package utility;
 
-import application.MessageHandler;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
-
-import java.util.List;
 
 /**
  * Created by David on 4/28/2018.
