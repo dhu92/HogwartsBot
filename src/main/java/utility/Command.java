@@ -49,7 +49,7 @@ public abstract class Command {
         MessageHandler.sendTextResponse(message, text);
     }
 
-    public void sendEmbededMessage(Message message,String title, String text, String pictureUrl){
+    public void sendEmbeddedMessage(Message message, String title, String text, String pictureUrl){
         MessageHandler.sendEmbededMessage(message,title, text, pictureUrl);
     }
 
