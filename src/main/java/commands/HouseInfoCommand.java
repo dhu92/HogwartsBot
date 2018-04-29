@@ -15,17 +15,14 @@ public class HouseInfoCommand extends Command{
         super("house", "See information about a Hogwarts house");
     }
 
-    public void execute(Message message) {
-        if(commandShouldBeExecuted(message)) {
+    public void performAction(Message message) {
             String houseName = convertMessageToStringParameters(message)[1];
             if (Hogwarts.getInstance().houseExists(houseName)) {
-                //sendTextResponse(message, Hogwarts.getInstance().getHouseByName(houseName).getInfoString());
                 HogwartsHouse house = Hogwarts.getInstance().getHouseByName(houseName);
                 sendEmbededMessage(message, house.getName(), house.getInfoString(), house.getPictureUrl());
             } else {
                 sendTextResponse(message, "Hogwarts house " + houseName + " does not exist!");
             }
-        }
     }
 
     public boolean commandShouldBeExecuted(Message message) {

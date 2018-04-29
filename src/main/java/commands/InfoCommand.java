@@ -13,9 +13,9 @@ public class InfoCommand extends Command {
         super("info", "Get information about your wizard!");
     }
 
-    public void execute(Message message) {
+    public void performAction(Message message) {
         Wizard wizard = Wizard.getWizardRepository().getWizardByUid(message.getAuthor().getId());
-        if(wizard != null) {
+        if(Wizard.getWizardRepository().wizardExists(message.getAuthor().getId())) {
             sendTextResponse(message, wizard.getInfoString());
         } else {
             sendTextResponse(message, "You are not a wizard yet!");
@@ -23,6 +23,6 @@ public class InfoCommand extends Command {
     }
 
     public boolean commandShouldBeExecuted(Message message) {
-        return Wizard.getWizardRepository().wizardExists(message.getAuthor().getId());
+        return true;
     }
 }

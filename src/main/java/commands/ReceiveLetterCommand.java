@@ -15,21 +15,21 @@ public class ReceiveLetterCommand extends Command {
         super("receiveletter", "Start your career at Hogwarts!");
     }
 
-    public void execute(Message message) {
-        if (commandShouldBeExecuted(message)) {
-            Wizard wizard = new Wizard();
-            wizard.setUid(message.getAuthor().getId());
-            wizard.setName(message.getAuthor().getName());
-            wizard.setAlignment(Alignment.Neutral);
-            wizard.setHouse(Hogwarts.DEFAULT_HOUSE);
-            Wizard.getWizardRepository().save(wizard);
-            sendTextResponse(message, "You are a wizard, " + message.getAuthor().getName());
-        }
+    public void performAction(Message message) {
+        Wizard wizard = new Wizard();
+        wizard.setUid(message.getAuthor().getId());
+        wizard.setName(message.getAuthor().getName());
+        wizard.setAlignment(Alignment.Neutral);
+        wizard.setHouse(Hogwarts.DEFAULT_HOUSE);
+        Wizard.getWizardRepository().save(wizard);
+        sendTextResponse(message, "You are a wizard, " + message.getAuthor().getName());
+
     }
 
     public boolean commandShouldBeExecuted(Message message) {
         for(Wizard wizard : Wizard.getWizardRepository().getAllWizards()){
             if(wizard.getUid().equals(message.getAuthor().getId())){
+                System.out.println("Wizard already exists");
                 return false;
             }
         }

@@ -79,7 +79,7 @@ public abstract class ContextCommand extends Command{
         return _queue.getAllUsersByCommand(this);
     }
 
-    public void execute(Message message) {
+   /* public void execute(Message message) {
         if(commandShouldBeExecuted(message)) {
             User user = message.getAuthor();
             String[] params = convertMessageToStringParameters(message);
@@ -99,6 +99,30 @@ public abstract class ContextCommand extends Command{
             sendTextResponse(message, botAnswer);
             if (commandIsFinished(user)) {
                 //System.out.println("Command finished");
+                removeUser(user);
+            }
+        } else {
+            sendTextResponse(message, "No need to do that");
+        }
+    }*/
+
+    public void performAction(Message message){
+        if(commandShouldBeExecuted(message)) {
+            User user = message.getAuthor();
+            String[] params = convertMessageToStringParameters(message);
+            if (!userAlreadyInList(user)) {
+                addUser(user);
+            }
+            String botAnswer;
+            BotResponse response = getNextResponse(user);
+            if (response.checkParameters(params)) {
+                botAnswer = buildBotAnswerForCurrentStage(user, params);
+                addAnswer(user, buildUserAnswerString(params));
+            } else {
+                botAnswer = ERROR_MESSAGE;
+            }
+            sendTextResponse(message, botAnswer);
+            if (commandIsFinished(user)) {
                 removeUser(user);
             }
         } else {

@@ -15,14 +15,14 @@ public class HelpCommand extends Command {
         super("help", "Shows all currently available commands");
     }
 
-    public void execute(Message message) {
+    public void performAction(Message message) {
         List<Command> registeredCommands = MessageHandler.getInstance().getRegisteredCommands();
         StringBuilder sb = new StringBuilder();
 
         sb.append("Currently available commands:\n");
         sb.append("Name\tUsage\tDescription\n");
         for(Command command : registeredCommands){
-             sb.append(command.getName() + "\t\t" + MessageHandler.getPrefix() + command.getName() + "\t" +  command.getDescription() + "\n");
+            sb.append(command.getName() + "\t\t" + MessageHandler.getPrefix() + command.getName() + "\t" +  command.getDescription() + "\n");
         }
         sendTextResponse(message, sb.toString());
     }

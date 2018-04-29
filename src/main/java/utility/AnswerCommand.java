@@ -12,7 +12,7 @@ public class AnswerCommand extends Command {
         super("answer", "You can use this to answer to the bot!");
     }
 
-    public void execute(Message message) {
+    public void performAction(Message message) {
         AnswerQueue queue = AnswerQueue.getInstance();
         if(queue.isInList(message.getAuthor())){
             Command command = queue.getCommandForUser(message.getAuthor());

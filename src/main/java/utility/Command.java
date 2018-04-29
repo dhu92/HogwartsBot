@@ -53,7 +53,23 @@ public abstract class Command {
         MessageHandler.sendEmbededMessage(message,title, text, pictureUrl);
     }
 
-    public abstract void execute(Message message);
+    public void execute(Message message){
+        if(commandShouldBeExecuted(message)){
+            before(message);
+            performAction(message);
+            after(message);
+        }
+    }
+
+    public void before(Message message){
+
+    }
+
+    public abstract void performAction(Message message);
+
+    public void after(Message message){
+
+    }
 
     public boolean equals(Command command){
         if(_name.equals(command.getName())){
