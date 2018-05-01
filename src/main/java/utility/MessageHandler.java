@@ -1,7 +1,6 @@
-package application;
+package utility;
 
 import net.dv8tion.jda.core.EmbedBuilder;
-import utility.Command;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -15,7 +14,7 @@ import java.util.List;
  */
 public class MessageHandler {
 
-    private static final String PREFIX = "h!";
+    private static String PREFIX = "h!";
     private List<Command> _commands;
 
     private static MessageHandler _instance;
@@ -25,6 +24,10 @@ public class MessageHandler {
             _instance = new MessageHandler();
         }
         return _instance;
+    }
+
+    public void setPrefix(String prefix){
+        PREFIX = prefix;
     }
 
     private MessageHandler(){
@@ -66,7 +69,7 @@ public class MessageHandler {
         return false;
     }
 
-    public static void sendEmbededMessage(Message message,String title, String text, String pictureUrl){
+    public static void sendEmbeddedMessage(Message message, String title, String text, String pictureUrl){
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle(title);
         eb.setDescription(text);

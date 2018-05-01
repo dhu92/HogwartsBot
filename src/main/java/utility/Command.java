@@ -1,7 +1,5 @@
 package utility;
 
-import application.MessageHandler;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 
 /**
@@ -50,7 +48,7 @@ public abstract class Command {
     }
 
     public void sendEmbeddedMessage(Message message, String title, String text, String pictureUrl){
-        MessageHandler.sendEmbededMessage(message,title, text, pictureUrl);
+        MessageHandler.sendEmbeddedMessage(message,title, text, pictureUrl);
     }
 
     public void execute(Message message){

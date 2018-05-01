@@ -1,6 +1,6 @@
 package commands;
 
-import application.MessageHandler;
+import utility.MessageHandler;
 import net.dv8tion.jda.core.entities.Message;
 import utility.Command;
 

@@ -9,6 +9,8 @@ import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
+import utility.ConfigLoader;
+import utility.MessageHandler;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
@@ -33,6 +35,7 @@ public class ReadyListener implements EventListener {
 
     private ReadyListener(){
         _handler = MessageHandler.getInstance();
+        _handler.setPrefix("h!");
 
         _handler.addCommand(new SortCommand());
         _handler.addCommand(new HelpCommand());
