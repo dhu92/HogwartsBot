@@ -43,11 +43,9 @@ public class BotResponse {
         if(needsParameter()) {
             for (int i = 1; i < params.length; i++) {
                 if (!messageHasSufficientParameters(params)) {
-                    //System.out.println("Not enough params");
                     return false;
                 }
                 if (!isValidParameter(params[i])) {
-                    //System.out.println("Not a valid param" + params[i]);
                     return false;
                 }
             }
