@@ -43,6 +43,9 @@ public class ReadyListener implements EventListener {
         _handler.addCommand(new InfoCommand());
         _handler.addCommand(new ReceiveLetterCommand());
         _handler.addCommand(new HouseInfoCommand());
+        TriviaCommand triviaCommand = new TriviaCommand();
+        _handler.addCommand(triviaCommand);
+        _handler.addTriggerCommand(triviaCommand);
     }
 
     public void onEvent(Event event){

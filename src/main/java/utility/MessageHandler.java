@@ -16,7 +16,7 @@ public class MessageHandler {
 
     private static String PREFIX = "h!";
     private List<Command> _commands;
-
+    private List<Triggerable> _triggeredCommands;
     private static MessageHandler _instance;
 
     public static MessageHandler getInstance(){
@@ -31,12 +31,14 @@ public class MessageHandler {
     }
 
     private MessageHandler(){
+        _triggeredCommands = new ArrayList<Triggerable>();
         _commands = new ArrayList<Command>();
     }
 
     public void handleMessage(MessageReceivedEvent event){
         User author = event.getAuthor();
         if(!author.isBot()) {
+            checkTriggers(event.getMessage());
             Message message = event.getMessage();
             if (hasPrefix(message.getContentDisplay())) {
                 Command command = findMatchingCommand(message);
@@ -49,6 +51,13 @@ public class MessageHandler {
         }
     }
 
+    public void checkTriggers(Message message){
+        for(Triggerable cmd : _triggeredCommands){
+            if(cmd.isTriggered(message)){
+                cmd.trigger(message);
+            }
+        }
+    }
     public static void sendTextResponse(Message message, String response){
         message.getChannel().sendMessage(response).queue();
     }
@@ -81,7 +90,8 @@ public class MessageHandler {
         _commands.add(command);
     }
     public List<Command> getRegisteredCommands(){return _commands;}
-
+    public void addTriggerCommand(Triggerable triggerCommand){_triggeredCommands.add(triggerCommand);}
+    public List<Triggerable> getTriggerableCommands(){return _triggeredCommands;}
     public static String getPrefix(){
         return PREFIX;
     }

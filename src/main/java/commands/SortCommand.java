@@ -28,14 +28,14 @@ public class SortCommand extends ContextCommand {
     }
 
     public void setResponses() {
-        addResponse(new BotResponse("Which house would you like to be in?"));
+        addResponse(BotResponse.createBotResponse("Which house would you like to be in?"));
 
         ArrayList<String> params = new ArrayList<String>();
         for(HogwartsHouse house : Hogwarts.getInstance().getHogwartsHouseList()){
             params.add(house.getName());
         }
 
-        BotResponse response = new BotResponse("You have been sorted into: ");
+        BotResponse response = BotResponse.createBotResponse("You have been sorted into: ");
         response.addValidParameters(params);
 
         addResponse(response);

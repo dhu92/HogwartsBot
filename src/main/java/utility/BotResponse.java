@@ -11,9 +11,13 @@ public class BotResponse {
     private String _text;
     private List<ArrayList<String>> _validParameters;
 
-    public BotResponse(String text){
+    private BotResponse(String text){
         _text = text;
         _validParameters = new ArrayList<ArrayList<String>>();
+    }
+
+    public static BotResponse createBotResponse(String text){
+        return new BotResponse(text);
     }
 
     public void addValidParameters(ArrayList<String> params){

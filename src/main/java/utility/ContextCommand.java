@@ -35,7 +35,7 @@ public abstract class ContextCommand extends Command{
         if(getCurrentContextStage(user, this) < _response.size()) {
             return _response.get(getCurrentContextStage(user, this));
         }
-        return new BotResponse("Something went wrong");
+        return BotResponse.createBotResponse("Something went wrong");
     }
 
     public int getQuestionCount(){return _questions;}
